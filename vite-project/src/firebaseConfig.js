@@ -1,19 +1,24 @@
 // firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection, getDocs, addDoc, doc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+} from "firebase/firestore";
 
 // Your Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyAVuxRQfoRHfgwxn4nPHpjiTH4_MMLA4Fs",
-  authDomain: "auth-code-manager.firebaseapp.com",
-  projectId: "auth-code-manager",
-  storageBucket: "auth-code-manager.firebasestorage.app",
-  messagingSenderId: "58509409186",
-  appId: "1:58509409186:web:86507c489f69f01defd0fb",
-  measurementId: "G-KRM8TXBP1Z"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -21,4 +26,3 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export { auth, db, collection, getDocs, addDoc, doc };
-

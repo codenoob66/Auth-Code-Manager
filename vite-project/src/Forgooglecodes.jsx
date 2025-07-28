@@ -7,7 +7,6 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import styles from "./Forgooglecodes.module.css";
 
 const Forgooglecodes = () => {
   const [newCodes, setNewCodes] = useState("");
