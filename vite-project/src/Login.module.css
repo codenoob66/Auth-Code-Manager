@@ -1,13 +1,12 @@
 /* Login Component Styles */
 
 .formHolder {
-  padding: 5%;
+  /* padding: 5%; */
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  margin-left: auto !important;
-  background-color: black;
+  background-color: black
 }
 
 .innerFormHolder {
