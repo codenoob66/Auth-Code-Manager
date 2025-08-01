@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { observeAuthState } from "./AuthService";
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import Forgooglecodes from "./Forgooglecodes";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,10 +28,6 @@ function App() {
       <Route
         path="/dashboard"
         element={isAuthenticated ? <Dashboard /> : <Login />}
-      />
-      <Route
-        path="/Forgooglecodes"
-        element={isAuthenticated ? <Forgooglecodes /> : <Login />}
       />
     </Routes>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth, db } from "./firebaseConfig"; // Firebase setup
+import { auth, db } from "../firebaseConfig"; // Firebase setup
 import {
   collection,
   addDoc,
@@ -9,23 +9,15 @@ import {
 } from "firebase/firestore";
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
+import UsefulLinks from "../components/usefulLinks";
 
 const Dashboard = () => {
-  const [blogspotLink, setBlogspotLink] = useState(null);
-
-  const apiKey = "AIzaSyBgBO0RmyZ3C8Ze1stUTVv1EO7n-UyCOuk";
-  const apiUrl = "https://www.googleapis.com/youtube/v3/search";
-  const commentsApiUrl = "https://www.googleapis.com/youtube/v3/commentThreads";
-  const channelId = "UCFbYQycybEVQzzCp6O-FzrQ";
-
-
-
   const handleLogout = () => auth.signOut();
-
 
   return (
     <div>
-      <UsefulLinks/>
+      <h1>Welcome to your dashboard</h1>
+      <UsefulLinks />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
