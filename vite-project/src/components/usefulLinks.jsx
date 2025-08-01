@@ -3,18 +3,17 @@ import React from "react";
 const UsefulLinks = () => {
   return (
     <div>
-      <div></div>
       <div
         style={{
-          color: "white",
+          color: "black",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
 
-          width: "150px",
+          width: "220px",
         }}
       >
-        Useful links
+        <h3>Web Development links</h3>
         <ul>
           <li>
             <a
@@ -42,8 +41,11 @@ const UsefulLinks = () => {
             </a>
           </li>
           <li>
-            <a target="_blank" rel="noopener noreferrer">
-              Download Skins here
+            <a
+              href="https://central.github.com/deployments/desktop/desktop/latest/win32"
+              download
+            >
+              Download dota skins here
             </a>
           </li>
         </ul>
