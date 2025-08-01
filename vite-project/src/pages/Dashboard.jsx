@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { auth, db } from "../firebaseConfig"; // Firebase setup
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
-import styles from "./Dashboard.module.css";
-import { Link } from "react-router-dom";
-import UsefulLinks from "../components/usefulLinks";
+import { auth } from "../firebaseConfig"; // Firebase setup
+import WebDevLinks from "../components/webdevlinks";
+import GameLinks from "../components/gamelinks";
 
 const Dashboard = () => {
   const handleLogout = () => auth.signOut();
 
   return (
     <div>
-      <h1>Welcome to your dashboard</h1>
-      <UsefulLinks />
-      <button onClick={handleLogout}>Logout</button>
+      <div>
+        <h1>Welcome to your dashboard</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+
+      <WebDevLinks />
+      <GameLinks />
     </div>
   );
 };
