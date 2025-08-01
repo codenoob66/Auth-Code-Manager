@@ -1,6 +1,6 @@
 import React from "react";
 
-const UsefulLinks = () => {
+const WebDevLinks = () => {
   return (
     <div>
       <div
@@ -40,18 +40,10 @@ const UsefulLinks = () => {
               GitHub
             </a>
           </li>
-          <li>
-            <a
-              href="https://central.github.com/deployments/desktop/desktop/latest/win32"
-              download
-            >
-              Download dota skins here
-            </a>
-          </li>
         </ul>
       </div>
     </div>
   );
 };
 
-export default UsefulLinks;
+export default WebDevLinks;
