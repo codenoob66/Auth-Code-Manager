@@ -53,18 +53,28 @@ const Gamelinks = () => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        color: "black",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        width: "220px",
+      }}
+    >
       <h3>Useful game links</h3>
-      <li>
-        <a
-          href={ytDownloadLink || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          download
-        >
-          {ytDownloadLink ? "Download Dota skins here" : "Loading..."}
-        </a>
-      </li>
+      <ul>
+        <li>
+          <a
+            href={ytDownloadLink || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
+            {ytDownloadLink ? "Download Dota skins here" : "Loading..."}
+          </a>
+        </li>
+      </ul>
     </div>
   );
 };

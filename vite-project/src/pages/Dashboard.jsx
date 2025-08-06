@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { auth } from "../firebaseConfig"; // Firebase setup
 import WebDevLinks from "../components/webdevlinks";
 import GameLinks from "../components/gamelinks";
+import Scripts from "../components/scripts";
 
 const Dashboard = () => {
   const [isHovered, setHovered] = useState(false);
@@ -43,9 +44,11 @@ const Dashboard = () => {
           Logout
         </button>
       </div>
-
-      <WebDevLinks />
-      <GameLinks />
+      <div style={{ display: "flex" }}>
+        <WebDevLinks />
+        <GameLinks />
+        <Scripts />
+      </div>
     </div>
   );
 };
