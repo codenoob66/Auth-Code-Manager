@@ -4,7 +4,7 @@ const Gamelinks = () => {
   const [ytDownloadLink, setYtDownloadLink] = useState(null);
 
   const API_KEY = "AIzaSyCmkJHA60eUUM8RirRKGLobwMg_ShJIZag";
-  const CHANNEL_ID = "UCFbYQycybEVQzzCp6O-FzrQ"; // Dota2oughts
+  const CHANNEL_ID = "UCFbYQycybEVQzzCp6O-FzrQ";
 
   useEffect(() => {
     const stripHtml = (html) => {
@@ -38,7 +38,13 @@ const Gamelinks = () => {
 
         if (data.items && data.items.length > 0) {
           const videoId = data.items[0].id.videoId;
+          const videoTitle = data.items[0].snippet.title;
+          console.log(data.items);
+          if (videoTitle.includes("NOT")) {
+            return;
+          }
           const comment = await fetchFirstComment(videoId);
+
           if (comment) {
             const link = extractDownloadLink(comment);
             if (link) setYtDownloadLink(link);
@@ -71,7 +77,9 @@ const Gamelinks = () => {
             rel="noopener noreferrer"
             download
           >
-            {ytDownloadLink ? "Download Dota skins here" : "Loading..."}
+            {ytDownloadLink
+              ? "Download Dota skins here"
+              : "Mod skin is still being updated"}
           </a>
         </li>
       </ul>
