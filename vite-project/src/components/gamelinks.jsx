@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Gamelinks = () => {
   const [ytDownloadLink, setYtDownloadLink] = useState(null);
+  const [status, setStatus] = useState("loading")
 
   const API_KEY = "AIzaSyCmkJHA60eUUM8RirRKGLobwMg_ShJIZag";
   const CHANNEL_ID = "UCFbYQycybEVQzzCp6O-FzrQ";
@@ -40,14 +41,21 @@ const Gamelinks = () => {
           const videoId = data.items[0].id.videoId;
           const videoTitle = data.items[0].snippet.title;
           console.log(data.items);
-          if (videoTitle.includes("NOT")) {
-            return;
-          }
+          if (videoTitle.toLowerCase().includes("not")) {
+  setStatus("patched");
+  return;
+}
           const comment = await fetchFirstComment(videoId);
 
           if (comment) {
             const link = extractDownloadLink(comment);
-            if (link) setYtDownloadLink(link);
+            if (link) {
+  setYtDownloadLink(link);
+  setStatus("done");
+} else {
+  setStatus("skipped");
+}
+
           }
         }
       } catch (error) {
@@ -70,19 +78,28 @@ const Gamelinks = () => {
     >
       <h3>Useful game links</h3>
       <ul>
-        <li>
-          <a
-            href={ytDownloadLink || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-          >
-            {ytDownloadLink
-              ? "Download Dota skins here"
-              : "Mod skin is still being updated"}
-          </a>
-        </li>
-      </ul>
+  <li>
+    {status === "loading" && (
+      <span>Getting the download link...</span>
+    )}
+
+    {status === "patched" && (
+      <span>Currently working on new mod skin</span>
+    )}
+
+    {status === "done" && ytDownloadLink && (
+      <a
+        href={ytDownloadLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        download
+      >
+        Download Dota skins here
+      </a>
+    )}
+  </li>
+</ul>
+
     </div>
   );
 };
