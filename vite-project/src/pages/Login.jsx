@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
+import * as Chakra from "@chakra-ui/react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const toast = Chakra.useToast();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,7 +20,13 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login Successful!");
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
       navigate("/dashboard");
     } catch (err) {
       setError("Invalid email or password");
