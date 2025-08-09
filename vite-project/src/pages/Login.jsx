@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className={styles.formHolder}>
       <div className={styles.innerFormHolder}>
-        <h2>Code</h2>
+        <h2>Secret Productive App</h2>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <form onSubmit={handleLogin} className={styles.classColumn}>
           <input

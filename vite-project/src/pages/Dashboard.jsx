@@ -34,7 +34,10 @@ const Dashboard = () => {
           padding: "20px",
         }}
       >
-        <h1>Welcome to your dashboard</h1>
+        <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+          <h1 style={{ margin: 0 }}>Welcome to your dashboard</h1>
+        </div>
+
         <button
           style={logoutButtonStyle}
           onClick={handleLogout}
