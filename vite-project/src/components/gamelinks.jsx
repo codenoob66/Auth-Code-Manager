@@ -21,6 +21,7 @@ const Gamelinks = () => {
       // More robust regex to handle different spacings and characters
       const regex = /DOWNLOAD\s+HERE\s*:\s*(https?:\/\/[^\s]+)/i;
       const match = text.match(regex);
+
       return match ? match[1] : null;
     };
 
