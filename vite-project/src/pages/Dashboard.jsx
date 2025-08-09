@@ -35,7 +35,9 @@ const Dashboard = () => {
         }}
       >
         <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-          <h1 style={{ margin: 0 }}>Welcome to your dashboard</h1>
+          <h1 style={{ margin: 0, fontSize: "24px" }}>
+            Welcome to your dashboard
+          </h1>
         </div>
 
         <button

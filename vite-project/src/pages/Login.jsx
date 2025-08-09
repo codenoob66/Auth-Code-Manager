@@ -29,7 +29,14 @@ const Login = () => {
       });
       navigate("/dashboard");
     } catch (err) {
-      setError("Invalid email or password");
+      toast({
+        title: "Login Failed horribly",
+        description:
+          "Please check your email or password and try again you dumb fuck",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
     }
 
     setLoading(false);
