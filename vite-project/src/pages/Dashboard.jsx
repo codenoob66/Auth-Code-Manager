@@ -3,9 +3,11 @@ import { auth } from "../firebaseConfig"; // Firebase setup
 import WebDevLinks from "../components/webdevlinks";
 import GameLinks from "../components/gamelinks";
 import Scripts from "../components/scripts";
+import Codes from "../components/codes";
 
 const Dashboard = () => {
   const [isHovered, setHovered] = useState(false);
+  const { currentUser } = auth;
 
   const handleLogout = () => auth.signOut();
 
@@ -26,6 +28,7 @@ const Dashboard = () => {
 
   return (
     <div>
+      <h1>Welcome, {currentUser.email}</h1>
       <div
         style={{
           display: "flex",
@@ -54,6 +57,7 @@ const Dashboard = () => {
         <GameLinks />
         <Scripts />
       </div>
+      <Codes />
     </div>
   );
 };
