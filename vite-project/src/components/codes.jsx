@@ -6,8 +6,14 @@ const Codes = () => {
   };
 
   return (
-    <div>
-      this is where the textarea will go
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      Paste your codes here:
       <textarea
         name="write your codes here"
         id=""

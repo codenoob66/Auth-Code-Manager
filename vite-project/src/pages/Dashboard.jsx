@@ -53,9 +53,18 @@ const Dashboard = () => {
         </button>
       </div>
       <div style={{ display: "flex" }}>
-        <WebDevLinks />
-        <GameLinks />
-        <Scripts />
+        <div
+          style={{
+            flex: 1,
+            padding: "20px",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <WebDevLinks />
+          <GameLinks />
+          <Scripts />
+        </div>
       </div>
       <Codes />
     </div>
