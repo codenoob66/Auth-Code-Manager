@@ -5,10 +5,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     index: true,
-    unique: true, // ensures one doc per Firebase user
+    unique: true,
   },
   codes: {
-    type: [String], // array of strings for multiple codes
+    type: [String], // holds exactly 8 backup codes at a time
     required: true,
   },
   createdAt: {
@@ -17,7 +17,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-// Use "User" (or "BackupCode") as the collection name
 const User = mongoose.model("User", UserSchema);
 
 export default User;
