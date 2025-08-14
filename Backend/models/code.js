@@ -1,4 +1,4 @@
-constUserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   uid: {
     type: String,
     required: true,
