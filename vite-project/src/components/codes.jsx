@@ -1,6 +1,10 @@
-import React from "react";
+import { useState } from "react";
 
 const Codes = () => {
+  const [codes, setCodes] = useState("");
+
+  setCodes = () => {};
+
   const textAreaStyle = {
     border: "1px solid #ccc",
   };
