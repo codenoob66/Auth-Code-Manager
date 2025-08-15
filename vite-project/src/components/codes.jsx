@@ -1,47 +1,30 @@
 import { useState, useEffect } from "react";
-import { auth } from "../firebaseConfig"; // your Firebase setup
+import { auth } from "../firebaseConfig";
+import { loadCodes, saveCodes } from "../utils/codesService.js";
 
 const Codes = () => {
   const [codes, setCodes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const user = auth.currentUser; // currently logged-in user
-  const backendURL = "https://auth-code-manager.onrender.com"; // Render backend URL
+  const user = auth.currentUser;
 
-  // Fetch codes on component mount or when user changes
   useEffect(() => {
     if (!user) return;
 
-    const fetchCodes = async () => {
+    const fetchUserCodes = async () => {
       setLoading(true);
-      try {
-        const res = await fetch(`${backendURL}/api/codes/${user.uid}`);
-        const data = await res.json();
-        setCodes(data.codes || []); // fallback to empty array
-      } catch (err) {
-        console.error("Failed to fetch codes:", err);
-      }
+      const data = await loadCodes(user.uid);
+      setCodes(data);
       setLoading(false);
     };
 
-    fetchCodes();
+    fetchUserCodes();
   }, [user]);
 
-  // Save codes to backend
-  const saveCodes = async () => {
+  const handleSaveCodes = async () => {
     if (!user) return;
-    try {
-      await fetch(`${backendURL}/api/codes/${user.uid}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ codes }),
-      });
-      alert("Codes saved successfully!");
-    } catch (err) {
-      console.error("Failed to save codes:", err);
-    }
+    await saveCodes(user.uid, codes);
+    alert("Codes saved successfully!");
   };
 
   const textAreaStyle = {
@@ -64,7 +47,7 @@ const Codes = () => {
           value={codes.join("\n")}
           onChange={(e) => setCodes(e.target.value.split("\n"))}
         ></textarea>
-        <button onClick={saveCodes} style={{ marginTop: "10px" }}>
+        <button onClick={handleSaveCodes} style={{ marginTop: "10px" }}>
           Save Codes
         </button>
       </div>
