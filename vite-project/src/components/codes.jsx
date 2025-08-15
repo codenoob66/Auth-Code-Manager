@@ -94,7 +94,10 @@ const Codes = () => {
         ) : codes.length > 0 ? (
           <ul>
             {codes.map((code, idx) => (
-              <li key={idx}>{code}</li>
+              <div>
+                <li key={idx}>{code}</li>
+                <button>delete</button>
+              </div>
             ))}
           </ul>
         ) : (
