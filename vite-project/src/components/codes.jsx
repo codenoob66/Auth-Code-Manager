@@ -1,12 +1,43 @@
 import { useState, useEffect } from "react";
 import { auth } from "../firebaseConfig";
-import { loadCodes, saveCodes } from "../utils/codesService.js";
 
 const Codes = () => {
   const [codes, setCodes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const user = auth.currentUser;
+
+  // local version of loadCodes
+  const loadCodes = async (uid) => {
+    try {
+      const response = await fetch(
+        `https://auth-code-manager.onrender.com/api/codes/${uid}`
+      );
+      const data = await response.json();
+      return data.codes || [];
+    } catch (error) {
+      console.error("Error loading codes:", error);
+      return [];
+    }
+  };
+
+  // local version of saveCodes
+  const saveCodes = async (uid, codes) => {
+    try {
+      const response = await fetch(
+        `https://auth-code-manager.onrender.com/api/codes/${uid}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ codes }),
+        }
+      );
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error saving codes:", error);
+    }
+  };
 
   useEffect(() => {
     if (!user) return;
