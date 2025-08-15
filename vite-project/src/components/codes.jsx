@@ -1,77 +1,75 @@
-import { useEffect, useState } from "react";
-import { auth } from "../firebaseConfig";
+import { useState, useEffect } from "react";
+import { auth } from "../firebaseConfig"; // your Firebase setup
 
 const Codes = () => {
   const [codes, setCodes] = useState([]);
-  const [user, setUser] = useState(null);
-  const [status, setStatus] = useState(""); // ✅ for messages
+  const [loading, setLoading] = useState(true);
 
-  // Fetch codes when user logs in
+  const user = auth.currentUser; // currently logged-in user
+  const backendURL = "https://auth-code-manager.onrender.com"; // Render backend URL
+
+  // Fetch codes on component mount or when user changes
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((u) => {
-      if (u) {
-        setUser(u);
-        fetch(`http://localhost:5000/api/codes/${u.uid}`)
-          .then((res) => res.json())
-          .then((data) => setCodes(data.codes || []))
-          .catch(() => setStatus("❌ Failed to fetch codes"));
+    if (!user) return;
+
+    const fetchCodes = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${backendURL}/api/codes/${user.uid}`);
+        const data = await res.json();
+        setCodes(data.codes || []); // fallback to empty array
+      } catch (err) {
+        console.error("Failed to fetch codes:", err);
       }
-    });
-    return () => unsubscribe();
-  }, []);
+      setLoading(false);
+    };
 
-  // Save codes
-  const handleSave = async () => {
-    if (!user) {
-      setStatus("⚠️ Please log in first");
-      return;
-    }
+    fetchCodes();
+  }, [user]);
 
+  // Save codes to backend
+  const saveCodes = async () => {
+    if (!user) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/codes/${user.uid}`, {
+      await fetch(`${backendURL}/api/codes/${user.uid}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ codes }),
       });
-
-      if (!res.ok) throw new Error("Failed to save");
-
-      setStatus("✅ Codes saved successfully!");
+      alert("Codes saved successfully!");
     } catch (err) {
-      setStatus("❌ Failed to save codes. Try again.");
+      console.error("Failed to save codes:", err);
     }
+  };
 
-    // Clear the status after a few seconds
-    setTimeout(() => setStatus(""), 3000);
+  const textAreaStyle = {
+    border: "1px solid #ccc",
+    minWidth: "200px",
+    minHeight: "150px",
+    marginRight: "20px",
   };
 
   return (
     <div
       style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
     >
-      {/* Left: textarea */}
+      {/* Left side: Textarea */}
       <div style={{ display: "flex", flexDirection: "column" }}>
         <label htmlFor="codesInput">Paste your codes here:</label>
         <textarea
           id="codesInput"
-          style={{
-            border: "1px solid #ccc",
-            minWidth: "200px",
-            minHeight: "150px",
-            marginRight: "20px",
-          }}
+          style={textAreaStyle}
           value={codes.join("\n")}
           onChange={(e) => setCodes(e.target.value.split("\n"))}
         ></textarea>
-        <button onClick={handleSave} style={{ marginTop: "10px" }}>
+        <button onClick={saveCodes} style={{ marginTop: "10px" }}>
           Save Codes
         </button>
-
-        {/* ✅ Status message */}
-        {status && <p style={{ marginTop: "8px" }}>{status}</p>}
       </div>
 
-      {/* Right: Display */}
+      {/* Right side: Fetched/displayed codes */}
       <div
         style={{
           border: "1px solid #ccc",
@@ -81,7 +79,9 @@ const Codes = () => {
         }}
       >
         <h4>Fetched Codes</h4>
-        {codes.length > 0 ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : codes.length > 0 ? (
           <ul>
             {codes.map((code, idx) => (
               <li key={idx}>{code}</li>
