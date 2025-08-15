@@ -7,12 +7,11 @@ const Codes = () => {
 
   const user = auth.currentUser;
 
+  const BASE_URL = "https://auth-code-manager.onrender.com/api/codes";
   // local version of loadCodes
   const loadCodes = async (uid) => {
     try {
-      const response = await fetch(
-        `https://auth-code-manager.onrender.com/api/codes/${uid}`
-      );
+      const response = await fetch(`${BASE_URL}/${uid}`);
       const data = await response.json();
       return data.codes || [];
     } catch (error) {
@@ -24,14 +23,11 @@ const Codes = () => {
   // local version of saveCodes
   const saveCodes = async (uid, codes) => {
     try {
-      const response = await fetch(
-        `https://auth-code-manager.onrender.com/api/codes/${uid}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ codes }),
-        }
-      );
+      const response = await fetch(`${BASE_URL}/${uid}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ codes }),
+      });
       const data = await response.json();
       return data;
     } catch (error) {
