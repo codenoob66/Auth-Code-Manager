@@ -40,6 +40,14 @@ const WebDevLinks = () => {
               GitHub
             </a>
           </li>
+          <li>
+            <a
+              href="https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/xampp-windows-x64-8.2.12-0-VS16-installer.exe"
+              download
+            >
+              Xampp Installer
+            </a>
+          </li>
         </ul>
       </div>
     </div>
