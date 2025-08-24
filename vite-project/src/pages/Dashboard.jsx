@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../firebaseConfig"; // Firebase setup
 import WebDevLinks from "../components/webdevlinks";
 import GameLinks from "../components/gamelinks";
@@ -8,6 +8,15 @@ import Codes from "../components/codes";
 const Dashboard = () => {
   const [isHovered, setHovered] = useState(false);
   const { currentUser } = auth;
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if (currentUser.email == "smurf4812@gmail.com") {
+      setUser("Rafael");
+    } else {
+      setUser("Jacob");
+    }
+  }, [currentUser]);
 
   const handleLogout = () => auth.signOut();
 
@@ -28,7 +37,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Welcome, {currentUser.email}</h1>
+      <h1>Welcome, {user}</h1>
       <div
         style={{
           display: "flex",
