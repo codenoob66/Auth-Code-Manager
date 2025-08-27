@@ -61,11 +61,9 @@ const Gamelinks = () => {
             return;
           }
           const comment = await fetchFirstComment(videoId);
-          console.log(comment);
 
           if (comment) {
             const link = extractDownloadLink(comment);
-            console.log(link);
             if (link) {
               setYtDownloadLink(link);
               setStatus("done");
