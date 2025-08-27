@@ -19,7 +19,7 @@ const Gamelinks = () => {
     const extractDownloadLink = (commentHtml) => {
       const text = stripHtml(commentHtml);
       // More robust regex to handle different spacings and characters
-      const regex = /DOWNLOAD\s+HERE\s*:\s*(https?:\/\/[^\s]+)/i;
+      const regex = /DOWNLOAD(?:\s+HERE)?\s*:\s*(https?:\/\/[^\s]+)/i;
       const match = text.match(regex);
 
       return match ? match[1] : null;
@@ -61,9 +61,11 @@ const Gamelinks = () => {
             return;
           }
           const comment = await fetchFirstComment(videoId);
+          console.log(comment);
 
           if (comment) {
             const link = extractDownloadLink(comment);
+            console.log(link);
             if (link) {
               setYtDownloadLink(link);
               setStatus("done");
